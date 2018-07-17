@@ -94,10 +94,10 @@ print("val accuracy score:",(val_pre==val_y).mean())
 
 
 
-preds = lin_clf.predict(test_term_doc)
-i=0
-fid0.write("id,class"+"\n")
-for item in preds:
-    fid0.write(str(i)+","+str(item+1)+"\n")
-    i=i+1
-fid0.close()
+# preds = lin_clf.predict(test_term_doc)
+# i=0
+# fid0.write("id,class"+"\n")
+# for item in preds:
+#     fid0.write(str(i)+","+str(item+1)+"\n")
+#     i=i+1
+# fid0.close()
