@@ -10,13 +10,13 @@ sess = tf.InteractiveSession()
 
 
 # --------------- tf.nn.conv1d  -------------------
-inputs=tf.ones((64,10,3))  # [batch, n_sqs, embedsize]
-w=tf.constant(1,tf.float32,(5,3,32))  # [w_high, embedsize, n_filers]
-conv1 = tf.nn.conv1d(inputs,w,stride=2 ,padding='SAME')  # conv1=[batch, round(n_sqs/stride), n_filers],stride是步长。
-
-tf.global_variables_initializer().run()
-out = sess.run(w)
-print(out)
+# inputs=tf.ones((64,10,3))  # [batch, n_sqs, embedsize]
+# w=tf.constant(1,tf.float32,(5,3,32))  # [w_high, embedsize, n_filers]
+# conv1 = tf.nn.conv1d(inputs,w,stride=2 ,padding='SAME')  # conv1=[batch, round(n_sqs/stride), n_filers],stride是步长。
+#
+# tf.global_variables_initializer().run()
+# out = sess.run(w)
+# print(out)
 
 # --------------- tf.nn.conv1d  &  tf.layers.conv1d  -------------------
 batch_size = 32
@@ -25,15 +25,16 @@ seq_length = 600  # 序列长度
 num_classes = 10  # 类别数
 num_filters = 256  # 卷积核数目
 kernel_size = 5  # 卷积核尺寸
-vocab_size = 5000  # 词汇表达小
+vocab_size = 50  # 词汇表达小
 
 
 input_x = tf.placeholder(tf.int32,[None,seq_length])
-
+input_y = tf.placeholder(tf.int32,[None])
 # 词向量映射
 with tf.device('/cpu:0'):
     embedding = tf.get_variable('embedding', [vocab_size, embedding_dim])    # shape = (5000,64)
     embedding_inputs = tf.nn.embedding_lookup(embedding, input_x)  # shape = (?, 600,64)
+    one_hot_y = tf.one_hot(input_y, num_classes)
 
 with tf.name_scope("cnn"):
     # CNN layer
@@ -47,7 +48,8 @@ with tf.name_scope("cnn"):
 tf.global_variables_initializer().run()
 
 x = np.random.randint(vocab_size, size=[batch_size,seq_length])
-out = sess.run(conv1, feed_dict={input_x:x})
+y = np.array([3,1,6])
+out = sess.run(one_hot_y, feed_dict={input_x:x,input_y:y})
 print(out)  #
 
 # ----------------------------------cov2d to cov1d---------------------------------------------
