@@ -7,12 +7,12 @@
 import tensorflow as tf
 
 v1 = tf.get_variable("v", [1])
-print(v1.name)
+print(v1.name)  # v:0
 
 
 with tf.variable_scope("a"):  #reuse 默认False
     v2 = tf.get_variable("v", [1], initializer=tf.constant_initializer(1.0))
-    print(v2.name)
+    print(v2.name)  # a/v:0
 
 # with tf.variable_scope("a"):
 #     v3 = tf.get_variable("v", [1])   # 报错 ValueError: Variable a/v already exists,
