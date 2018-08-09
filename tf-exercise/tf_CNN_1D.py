@@ -1,7 +1,7 @@
 """
 1、比较了tf.nn.conv1d和tf.layters.conv1d 两种方法的实现及参数。
-2、用cov2d实现 cov1d
-ref:https://www.cnblogs.com/HITSZ/p/8721414.html
+ref:https://blog.csdn.net/john_xyz/article/details/79210088
+2、用cov2d实现 cov1d   ref:https://www.cnblogs.com/HITSZ/p/8721414.html
 """
 
 import tensorflow as tf
@@ -21,10 +21,10 @@ sess = tf.InteractiveSession()
 # --------------- tf.nn.conv1d  &  tf.layers.conv1d  -------------------
 batch_size = 32
 embedding_dim = 64  # 词向量维度
-seq_length = 600  # 序列长度
+seq_length = 10  # 序列长度
 num_classes = 10  # 类别数
 num_filters = 256  # 卷积核数目
-kernel_size = 5  # 卷积核尺寸
+kernel_size = 3  # 卷积核尺寸
 vocab_size = 50  # 词汇表达小
 
 
@@ -38,9 +38,13 @@ with tf.device('/cpu:0'):
 
 with tf.name_scope("cnn"):
     # CNN layer
+    # 只在序列维度上进行上下滑动（卷积），embedding维度全包括。
+    # 比如一个句子是10个字，embedding后是[10*embedsize]的矩阵，卷积核尺寸是3，即窗口大小是3*embedsize，卷积核数量是100，滑动步长是2，
+    # padding='SAME'时，输出[10/2  * 100]维的矩阵，padding='valid'时，输出[round(（10-3）/2)  * 100]维的矩阵
+
     w = tf.Variable(initial_value=tf.truncated_normal(shape=[kernel_size, embedding_dim, num_filters], stddev=0.1))
     conv1 = tf.nn.conv1d(embedding_inputs, w, stride=2,name='conv1',padding='SAME')  # conv1=[batch, round(n_sqs/stride), n_filers],stride是步长。
-    conv2 = tf.layers.conv1d(embedding_inputs, num_filters, kernel_size, name='conv2')  # shape = (?, 596,256)
+    conv2 = tf.layers.conv1d(embedding_inputs, num_filters, kernel_size,strides=2, padding='valid',name='conv2')  # shape = (?, 596,256)
     # global max pooling layer
     gmp = tf.reduce_max(conv1, reduction_indices=[1], name='gmp')  # shape = (?, 256)
 
@@ -49,7 +53,7 @@ tf.global_variables_initializer().run()
 
 x = np.random.randint(vocab_size, size=[batch_size,seq_length])
 y = np.array([3,1,6])
-out = sess.run(one_hot_y, feed_dict={input_x:x,input_y:y})
+out = sess.run(conv1, feed_dict={input_x:x,input_y:y})
 print(out)  #
 
 # ----------------------------------cov2d to cov1d---------------------------------------------
