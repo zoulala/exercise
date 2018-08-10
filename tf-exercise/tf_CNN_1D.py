@@ -41,6 +41,8 @@ with tf.name_scope("cnn"):
     # 只在序列维度上进行上下滑动（卷积），embedding维度全包括。
     # 比如一个句子是10个字，embedding后是[10*embedsize]的矩阵，卷积核尺寸是3，即窗口大小是3*embedsize，卷积核数量是100，滑动步长是2，
     # padding='SAME'时，输出[10/2  * 100]维的矩阵，padding='valid'时，输出[round(（10-3）/2)  * 100]维的矩阵
+    # 一般卷积核尺寸选择多个，如2、3、4相当于代表2-gram 3-gram 4-gram信息，也可以选择1，代表字粒度信息
+    # ref:https://www.jianshu.com/p/a8a573a0e0fa
 
     w = tf.Variable(initial_value=tf.truncated_normal(shape=[kernel_size, embedding_dim, num_filters], stddev=0.1))
     conv1 = tf.nn.conv1d(embedding_inputs, w, stride=2,name='conv1',padding='SAME')  # conv1=[batch, round(n_sqs/stride), n_filers],stride是步长。
