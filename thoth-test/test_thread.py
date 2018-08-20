@@ -14,13 +14,16 @@ def move(func):
         sleep(5)
 
 
+#  参数args测试
 class Threads():
     def __init__(self):
+        self.key = 1
         pass
 
     def redis_monitor_thread(self, dict):
         '''redis 过期监控,robot过期则清除，释放内存'''
         robotId_list = list(dict.keys())
+        print(self.key)
         print(robotId_list)
 
         t = Timer(3, self.redis_monitor_thread, args=(dict,))
@@ -29,18 +32,20 @@ class Threads():
 
 
 if __name__ == '__main__':
+
+    # --------------------------参数args测试----------------------------
     dict={1:[1,2,],2:'abc',3:'aa'}
     ts = Threads()
     ts.redis_monitor_thread(dict)
-
-
     while 1:
         pass
 
-    #
+    # ---------------------------线程测试------------------------------------
     # t1 = Thread(target=music, args=(u'子现在执行...',))
     # t1.start()
     # t2 = Thread(target=move, args=(u'阿凡达',))
     # t2.start()
+    # print('==========主程序结束============')
 
-    print('==========主程序结束============')
+
+

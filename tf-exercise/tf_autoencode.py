@@ -3,7 +3,7 @@ auto encode-decode;输入和输出均为本身，进行训练，中间层即为�
 ref:https://blog.csdn.net/lwq1026/article/details/78581649
 ref:https://github.com/aymericdamien/TensorFlow-Examples/blob/master/examples/3_NeuralNetworks/autoencoder.py
 '''
-
+from __future__ import division, print_function, absolute_import
 
 """ Auto Encoder Example.
 Build a 2 layers auto-encoder with TensorFlow to compress images to a
@@ -17,7 +17,7 @@ Links:
 Author: Aymeric Damien
 Project: https://github.com/aymericdamien/TensorFlow-Examples/
 """
-from __future__ import division, print_function, absolute_import
+
 
 import tensorflow as tf
 import numpy as np

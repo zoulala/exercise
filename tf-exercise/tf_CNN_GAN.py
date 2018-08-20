@@ -3,7 +3,7 @@ TF实现深度卷积-生成对抗网络 （DCGAN）
 ref:https://github.com/aymericdamien/TensorFlow-Examples/blob/master/examples/3_NeuralNetworks/dcgan.py
 '''
 
-
+from __future__ import division, print_function, absolute_import
 """ Deep Convolutional Generative Adversarial Network (DCGAN).
 Using deep convolutional generative adversarial networks (DCGAN) to generate
 digit images from a noise distribution.
@@ -17,7 +17,7 @@ Author: Aymeric Damien
 Project: https://github.com/aymericdamien/TensorFlow-Examples/
 """
 
-from __future__ import division, print_function, absolute_import
+
 
 import matplotlib.pyplot as plt
 import numpy as np
