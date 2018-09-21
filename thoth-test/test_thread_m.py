@@ -32,16 +32,16 @@ def fn1(robot):
     while True:   # 线程会一直执行
         k = np.dot(robot.private_lib_vec_dict[1], list(range(400)))
         print('计算...ok:',len(k))
-        sleep(0)
+        # sleep(0)
 
 
 def fn2(robot):
     for i in range(2,100,3):  # 线程执行完自动结束
         a_t = time()
-        robot.model_del( [i,])
+        robot.model_del( [i,i+1,i+2,i+3,i+10,i+12,i+23])
         b_t = time()
         print('删除后：',len(robot.private_lib_vec_dict[1]), len(robot.private_lib_id_dict[1]),'------',str(float(b_t-a_t)))
-        sleep(0.2)
+        # sleep(0.2)
 
 if __name__ == '__main__':
 
