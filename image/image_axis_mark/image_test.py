@@ -106,6 +106,6 @@ if __name__ == "__main__":
     print(len(axes_x_to_y))
 
     # print(find_column(gray_img))
-    # cv2.imshow('gray image', gray_img)
-    # cv2.waitKey(0)
+    cv2.imshow('gray image', gray_img)
+    cv2.waitKey(0)
     # cv2.imwrite('gray_lena.jpg', gray_img)
