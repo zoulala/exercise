@@ -9,3 +9,6 @@ spiders: test urllib/requests
 
 # 2018-09-27 commit
 image: image_to_ascii
+
+# 2018-10-12 commit
+hadoop: map+reduce
