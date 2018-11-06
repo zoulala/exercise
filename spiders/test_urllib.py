@@ -1,3 +1,5 @@
+'''请求库练习：urllib'''
+
 # python3
 from urllib import request,parse
 # 简单测试

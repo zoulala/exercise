@@ -15,12 +15,13 @@ import time
 
 import re
 from math import log
-from chatbot import load_data
+# from chatbot import load_data
 
 
 
-hanzi_re = re.compile(u"[\u4E00-\u9FD5]+", re.U)
-PHRASE_MAX_LENGTH = 6
+# hanzi_re = re.compile(u"[\u4E00-\u9FD5]+", re.U)
+hanzi_re = re.compile(u"[\w]+", re.U)
+PHRASE_MAX_LENGTH = 4  # 新词最大长度
 
 
 def str_decode(sentence):
@@ -53,7 +54,7 @@ def cut_sentence(sentence):
 def gen_word_dict(path):
     """统计文档所有候选词，词频（包括单字）"""
     word_dict = {}
-    with open(path,'r',encoding='utf-8') as fp:
+    with open(path,'r',encoding='gbk') as fp:
         for line in fp:
             utf_rdd = str_decode(line)
             hanzi_rdd = extract_hanzi(utf_rdd)   # list
@@ -189,9 +190,9 @@ def entro_filter(entro_in_rl_dict,entro_in_l_dict,entro_in_r_dict,word_dict,thr_
     
 def train_corpus_words(path):
     """读取语料文件，根据互信息、左右信息熵训练出语料词库"""
-    thr_fq = 18  # 词频筛选阈值
+    thr_fq = 100  # 词频筛选阈值
     thr_mtro = 80  # 互信息筛选阈值
-    thr_entro = 3  # 信息熵筛选阈值    
+    thr_entro = 3  # 信息熵筛选阈值
     
     # 步骤1：统计文档所有候选词，词频（包括单字）
     st = time.time()
@@ -231,7 +232,7 @@ def train_corpus_words(path):
     # 步骤6：输出最终满足的词，并按词频排序
     result = sorted(entro_dict.items(), key=lambda x:x[1], reverse=True)
 
-    with open('trains/model/userdict.txt', 'w',encoding='utf-8') as kf:
+    with open('d:\数据\\userdict.txt', 'w',encoding='utf-8') as kf:
         for w, m in result:
             #print w, m
             kf.write(w + ' %d\n' % m)
@@ -241,47 +242,47 @@ def train_corpus_words(path):
 
 if __name__ == "__main__":
 
-    path = 'bbs_tlcg_3001~5000.txt'
+    path = 'd:\数据\\query_text.txt'
     print ('训练开始...')
-    #train_corpus_words(path)
+    train_corpus_words(path)
     print ('training is ok !')
 
-
-
-    # 去除jieba词库中已有的词
-    jieba_words = []  # jieba词库
-    with open('data/dict.txt', 'r', encoding='utf-8') as jf:
-        for line in jf:
-            word = line.split()[0]
-            jieba_words.append(word)
-
-    user_words = []  # 最终自定义词库
-    k = 0
-    with open('model/userdict.txt', 'r', encoding='utf-8') as uf:
-        for line in uf:
-            k += 1
-            word = line.split()[0]
-            if word not in jieba_words:
-                user_words.append(word)
-                #print (word)
-            if k%1000 == 0:
-                print (k)
-
-    # 添加人工关键词库
-    with open('data/userkey.txt', 'r', encoding='utf-8') as kf:
-        for line in kf:
-            word = line.split()[0]
-            if word not in jieba_words and word not in user_words:
-                user_words.append(word)
-
-    # keys = load_data.load_keyslist('tianlongs')
-    # for key in keys:
-    #     if key not in jieba_words and key not in user_words:
-    #         user_words.append(key)
-
-
-
-    # 最终自定义分词库写入文件
-    with open('model/userdicts.txt','w',encoding="utf-8") as tf:
-        for word in user_words:
-            tf.write(word + ' %d\n' % 100)
+    #
+    #
+    # # 去除jieba词库中已有的词
+    # jieba_words = []  # jieba词库
+    # with open('d:\数据/dict.txt', 'r', encoding='utf-8') as jf:
+    #     for line in jf:
+    #         word = line.split()[0]
+    #         jieba_words.append(word)
+    #
+    # user_words = []  # 最终自定义词库
+    # k = 0
+    # with open('d:\数据/userdict.txt', 'r', encoding='utf-8') as uf:
+    #     for line in uf:
+    #         k += 1
+    #         word = line.split()[0]
+    #         if word not in jieba_words:
+    #             user_words.append(word)
+    #             #print (word)
+    #         if k%1000 == 0:
+    #             print (k)
+    #
+    # # 添加人工关键词库
+    # with open('d:\数据/userkey.txt', 'r', encoding='utf-8') as kf:
+    #     for line in kf:
+    #         word = line.split()[0]
+    #         if word not in jieba_words and word not in user_words:
+    #             user_words.append(word)
+    #
+    # # keys = load_data.load_keyslist('tianlongs')
+    # # for key in keys:
+    # #     if key not in jieba_words and key not in user_words:
+    # #         user_words.append(key)
+    #
+    #
+    #
+    # # 最终自定义分词库写入文件
+    # with open('d:\数据/userdicts.txt','w',encoding="utf-8") as tf:
+    #     for word in user_words:
+    #         tf.write(word + ' %d\n' % 100)

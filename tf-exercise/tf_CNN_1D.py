@@ -21,7 +21,7 @@ sess = tf.InteractiveSession()
 # --------------- tf.nn.conv1d  &  tf.layers.conv1d  -------------------
 batch_size = 32
 embedding_dim = 64  # 词向量维度
-seq_length = 10  # 序列长度
+seq_length = 600  # 序列长度
 num_classes = 10  # 类别数
 num_filters = 256  # 卷积核数目
 kernel_size = 3  # 卷积核尺寸
@@ -47,8 +47,20 @@ with tf.name_scope("cnn"):
     w = tf.Variable(initial_value=tf.truncated_normal(shape=[kernel_size, embedding_dim, num_filters], stddev=0.1))
     conv1 = tf.nn.conv1d(embedding_inputs, w, stride=2,name='conv1',padding='SAME')  # conv1=[batch, round(n_sqs/stride), n_filers],stride是步长。
     conv2 = tf.layers.conv1d(embedding_inputs, num_filters, kernel_size,strides=2, padding='valid',name='conv2')  # shape = (?, 596,256)
+
+    # stride max pooling
+    convs = tf.expand_dims(conv1,axis=-1)  # shape=[?,596,256,1]
+    smp = tf.nn.max_pool(value=convs, ksize=[1, 3, num_filters, 1],strides=[1, 2, 1, 1],padding='SAME')  # shape=[?,299,256,1]
+    smp = tf.squeeze(smp,-1)  #  shape=[?,299,256]
+    h = tf.shape(smp)[1]
+    smp = tf.reshape(smp,shape=(-1, h*256))
     # global max pooling layer
     gmp = tf.reduce_max(conv1, reduction_indices=[1], name='gmp')  # shape = (?, 256)
+
+    # full contact layer
+    fc_input = smp  # gmp
+    fc_output = tf.layers.dense(fc_input, num_classes, use_bias=True)
+    fc_output = tf.nn.relu(fc_output)
 
 
 tf.global_variables_initializer().run()
