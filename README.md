@@ -8,5 +8,10 @@ good good study , day day up .
 spiders: test urllib/requests
 
 
-# 2018-11-06 commi
+# 2018-11-06 commit
+image: opencv_find_outlier
+
+
+# 2018-12-29 commit
+image: object_detect
 
