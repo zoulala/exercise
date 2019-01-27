@@ -3,8 +3,6 @@ tensorflow 实现logistic regression
 ref:https://github.com/aymericdamien/TensorFlow-Examples/tree/master/examples/2_BasicModels
 '''
 
-from __future__ import print_function
-
 '''
 A logistic regression learning algorithm example using TensorFlow library.
 This example is using the MNIST database of handwritten digits
@@ -12,6 +10,8 @@ This example is using the MNIST database of handwritten digits
 Author: Aymeric Damien
 Project: https://github.com/aymericdamien/TensorFlow-Examples/
 '''
+
+from __future__ import print_function
 
 import tensorflow as tf
 
