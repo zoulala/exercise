@@ -130,6 +130,8 @@ def convolutional_neural_network(input_image):
 # 深度强化学习入门: https://www.nervanasys.com/demystifying-deep-reinforcement-learning/
 # 训练神经网络
 def train_neural_network(input_image):
+
+    # ------------- 定义损失函数和优化器 ---------
     predict_action = convolutional_neural_network(input_image)
 
     argmax = tf.placeholder("float", [None, output])
@@ -139,6 +141,7 @@ def train_neural_network(input_image):
     cost = tf.reduce_mean(tf.square(action - gt))  # 移动步数最小，收益最大
     optimizer = tf.train.AdamOptimizer(1e-6).minimize(cost)
 
+    # ----------- 创建游戏对象和样本存储队列 -----------
     game = Game()
     D = deque()
 
@@ -149,6 +152,7 @@ def train_neural_network(input_image):
     ret, image = cv2.threshold(image, 1, 255, cv2.THRESH_BINARY)
     input_image_data = np.stack((image, image, image, image), axis=2)
 
+    # ----------- 产生样本过程及积累一定样本量后执行opt操作 -----------
     with tf.Session() as sess:
         sess.run(tf.initialize_all_variables())
 

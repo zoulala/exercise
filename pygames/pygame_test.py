@@ -90,5 +90,3 @@ class Game(object):
 
 game = Game()
 game.run()
-game = Game()
-game.run()
