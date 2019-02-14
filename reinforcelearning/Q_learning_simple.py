@@ -1,3 +1,7 @@
+# ref:https://www.bilibili.com/video/av16921335/?p=6
+# github: https://github.com/MorvanZhou/Reinforcement-learning-with-tensorflow/tree/master/contents/1_command_line_reinforcement_learning
+
+
 """
 A simple example for Reinforcement Learning using table lookup Q-learning method.
 An agent "o" is on the left of a 1 dimensional world, the treasure is on the rightmost location.
