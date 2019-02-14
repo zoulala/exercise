@@ -11,6 +11,7 @@ class Robot():
         # 私有库模型
         self.private_lib_vec_dict = {1:[], 2:[[5,5,5],[6,6,6],[7,7,7],[8,8,8]]}
         self.private_lib_id_dict = {1:[], 2:['e','f','g','h']}
+        self.wait_flag = False
 
         for i in range(200000):
             self.private_lib_vec_dict[1].append(list(range(400)))
@@ -18,6 +19,7 @@ class Robot():
 
 
     def model_del(self, private_questionId_list ):
+        self.wait_flag = True
         for questionId in private_questionId_list:
             for libId in self.private_lib_id_dict:
                 if questionId in self.private_lib_id_dict[libId]:
@@ -25,11 +27,13 @@ class Robot():
                     index = self.private_lib_id_dict[libId].index(questionId)
                     del self.private_lib_id_dict[libId][index]
                     del self.private_lib_vec_dict[libId][index]
-                    print("删除问题成功！")
-
+                    # print("删除问题成功！")
+        self.wait_flag = False
 
 def fn1(robot):
     while True:   # 线程会一直执行
+        # while robot.wait_flag:  # while self.wait_flag:等待删除操作
+        #     sleep(0.3)
         k = np.dot(robot.private_lib_vec_dict[1], list(range(400)))
         print('计算...ok:',len(k))
         # sleep(0)
