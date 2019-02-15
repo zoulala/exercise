@@ -19,4 +19,5 @@ image: object_detect
 # 2019-01-11 commit
 leetcode: DP_
 
-#
+# 2019-02-15 commit
+tf_exercise: tf_ResNet
