@@ -2,8 +2,6 @@
 good good study , day day up .
 
 
-# 
-
 # 2018-09-26 commit
 spiders: test urllib/requests
 
@@ -19,4 +17,5 @@ image: object_detect
 # 2019-01-11 commit
 leetcode: DP_
 
-#
+# 2019-02-15 commit
+tf_exercise: tf_ResNet
