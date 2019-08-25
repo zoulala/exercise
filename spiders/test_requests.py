@@ -26,3 +26,23 @@ d = {'key1': 'value1', 'key2': 'value2'}
 r = requests.post(url, data=d) # data可以是str 也可以是 bytes
 print('post-----------')
 print(r.text)
+
+
+
+# --------------- 打开网页为大文件时（下载大json数据） --------
+
+url = 'https://dataset-bj.cdn.bcebos.com/sked/dev_data.json'
+
+sf = open('xxx/dev_extra.txt','w')
+response = requests.get(url, stream=True)  # streamc参数按流下载，不会一次性下载。
+
+for line in response.iter_lines():  # response.iter_content(chunk_size=512)
+    if line:
+        sf.write(line.decode('utf8')+'\n')
+sf.close()
+
+#
+# data = response.text
+# # js_data = json.loads(data)
+#
+# sf.write(data)
