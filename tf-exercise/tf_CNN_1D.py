@@ -56,7 +56,8 @@ with tf.name_scope("cnn"):
     smp = tf.reshape(smp,shape=(-1, h*256))
     # global max pooling layer
     gmp = tf.reduce_max(conv1, reduction_indices=[1], name='gmp')  # shape = (?, 256)
-
+    g_max_p = tf.expand_dims(gmp, 1)  # 扩充一维度
+    g_max_exp = tf.tile(g_max_p, [1, 100, 1])  # 在各个维度上进行复制，1代表不复制
     # full contact layer
     fc_input = smp  # gmp
     fc_output = tf.layers.dense(fc_input, num_classes, use_bias=True)
@@ -67,7 +68,7 @@ tf.global_variables_initializer().run()
 
 x = np.random.randint(vocab_size, size=[batch_size,seq_length])
 y = np.array([3,1,6])
-out = sess.run(conv1, feed_dict={input_x:x,input_y:y})
+out,gmp1,g_max_p1,g_max_exp1 = sess.run([conv1,gmp,g_max_p,g_max_exp], feed_dict={input_x:x,input_y:y})
 print(out)  #
 
 # ----------------------------------cov2d to cov1d---------------------------------------------
