@@ -6,7 +6,7 @@
 # file:     intermediate_rnnML.py
 # author:   zoulingwei@zuoshouyisheng.com
 # date:     2019-10-15
-# brief:    
+# brief:    语言模型
 #
 # cmd>e.g:  
 # *****************************************************
