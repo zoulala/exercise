@@ -54,3 +54,5 @@ print(data.iat[1,1])  # 快速访问标量
 print(data[data.省控分数线 > 500])  # 使用单个列的值来选择数据
 # print(data[data>0]) # 从满足布尔条件的DataFrame中选择值, 数值型可用
 print(data[data['考生类别名称'].isin(['理科', '文科'])])  #使用 isin() 方法过滤
+print(data[(data.考生类别名称=='理科') & (data.录取批次名称.isin(['本科一批','本科二批','本科三批']))])  # 组合过滤
+
