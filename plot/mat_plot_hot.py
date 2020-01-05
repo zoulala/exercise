@@ -39,7 +39,7 @@ def hot_pcolor(data, xticks, yticks):
     plt.show()
 
 def hot_im(data, xticks, yticks):
-    plt.imshow(data,cmap=plt.cm.Blues, # 指定填充色
+    plt.imshow(data,cmap=plt.cm.winter, # 指定填充色
                )
     plt.axis([-0.5, 5.5, - 0.5, 4.5])  # 表示要显示图形的范围
     plt.xticks(np.arange(6),xticks)
