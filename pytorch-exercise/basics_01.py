@@ -6,7 +6,7 @@
 # file:     basics_01.py
 # author:   zoulingwei@zuoshouyisheng.com
 # date:     2019-10-08
-# brief:    
+# brief:    https://github.com/yunjey/pytorch-tutorial
 #
 # cmd>e.g:  
 # *****************************************************
@@ -117,7 +117,7 @@ z = y.numpy()
 train_dataset = torchvision.datasets.CIFAR10(root='./data/',
                                              train=True,
                                              transform=transforms.ToTensor(),
-                                             download=True)
+                                             download=False)
 
 # Fetch one data pair (read data from disk).
 image, label = train_dataset[0]
