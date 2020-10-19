@@ -17,7 +17,7 @@ import jieba
 
 # 第一次运行程序时将分好的词存入文件
 text = ''
-with open('text.txt','r',encoding='utf8') as fin:
+with open('./image/wordcloud/text.txt','r',encoding='utf8') as fin:
     for line in fin.readlines():
         line = line.strip('\n')
         text += ' '.join(jieba.cut(line))
