@@ -65,7 +65,7 @@ if __name__ == "__main__":
     model_name = 'model/word_model_wiki'
     #sentences = MySentences_all(path) # a memory-friendly iterator
 
-    #model = word2vec.Word2Vec(sentences)
+    model = word2vec.Word2Vec(sentences)
     #model.save(model_name)
 
     model = word2vec.Word2Vec.load(model_name)

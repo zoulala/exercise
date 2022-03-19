@@ -36,9 +36,49 @@ if __name__ == '__main__':
     # --------------------------参数args测试----------------------------
     dict={1:[1,2,],2:'abc',3:'aa'}
     ts = Threads()
-    ts.redis_monitor_thread(dict)
-    while 1:
-        pass
+    # ts.redis_monitor_thread(dict)
+    # while 1:
+    #     pass
+
+    gk_task = Thread(target=ts.redis_monitor_thread, args=(dict,))
+    gk_task.start()
+
+    print('aaaaa')
+
+
+    import time
+
+    import ctypes
+    import inspect
+
+    def _async_raise(tid, exctype):
+        """raises the exception, performs cleanup if needed"""
+        tid = ctypes.c_long(tid)
+        if not inspect.isclass(exctype):
+            exctype = type(exctype)
+        res = ctypes.pythonapi.PyThreadState_SetAsyncExc(tid, ctypes.py_object(exctype))
+        if res == 0:
+            raise ValueError("invalid thread id")
+        elif res != 1:
+            # """if it returns a number greater than one, you're in trouble,
+            # and you should call it again with exc=NULL to revert the effect"""
+            ctypes.pythonapi.PyThreadState_SetAsyncExc(tid, None)
+            raise SystemError("PyThreadState_SetAsyncExc failed")
+
+
+    def stop_thread(thread):
+        _async_raise(thread.ident, SystemExit)
+    # def stop_thread(thread):
+    #     _async_raise(thread.ident, SystemExit)
+
+
+    time.sleep(10)
+    print(gk_task.ident)
+    stop_thread(gk_task)
+
+    time.sleep(5)
+    gk_task = Thread(target=ts.redis_monitor_thread, args=(dict,))
+    gk_task.start()
 
     # ---------------------------线程测试------------------------------------
     # t1 = Thread(target=music, args=(u'子现在执行...',))
