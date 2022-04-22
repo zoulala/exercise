@@ -1,4 +1,4 @@
-import pkuseg
+import pkuseg  # https://github.com/lancopku/pkuseg-python
 import jieba
 
 
