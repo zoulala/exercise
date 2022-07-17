@@ -37,6 +37,8 @@ def for0(data, res):
             temp.pop()
         temp.pop()
 
+
+#  递归实现
 def recur(data, res,i, n):
 
     if i==n:
@@ -55,3 +57,10 @@ data = [[1,2,3],[5,6,7],[8,9,0]]
 res = []
 recur(data, res, 0, 3)
 
+# 第三方库
+
+import itertools
+
+data = [[1, 2, 3], [4, 5], [6, 7, 8, 9]]
+a = list(itertools.product(*data))
+print(a)
