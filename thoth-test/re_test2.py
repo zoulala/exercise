@@ -33,4 +33,12 @@ content = "ajr死啊啊人原因来人啊qer咳嗽"
 print(re.findall(pattren,content))
 
 
-
+# sub高级替换
+pattren= "^(.*?):(.*)$"
+content = """
+code:34
+id:305
+text:科室下进行观察
+"""
+for line in content.splitlines():
+    print(re.sub(pattren,'\"\\1\":\"\\2\"',line))  # 批量增加引号
