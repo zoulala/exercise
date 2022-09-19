@@ -17,12 +17,33 @@ from pywebio.output import *
 ### ------------- 基本输出---------------
 # 文本
 put_text("hello world.","hello too")
+put_text("a","a",sep='|',inline=True).style('color:red')
+put_text("b","b",inline=True)
+contents = []
+for i in range(100):
+    # a = put_text("咳嗽",inline=True).style('color:red')
+    # contents.append(a)
+    contents.append(put_text("咳嗽", inline=True).style('color:red'))
+    contents.append(put_text("三天", inline=True).style('color:blue'))
+put_info(*contents)
+put_scope('aaa',content=contents)
 
 # 表格
 put_table([
     ['product','price'],
     ['apple','$5.5'],
     ['banner','$3'],
+])
+
+# span
+put_table([
+    ['C'],
+    [span('E', col=2)],  # 'E' across 2 columns
+], header=[span('A', row=2), 'B'])  # 'A' across 2 rows
+
+put_grid([
+    [put_text('A'), put_text('B')],
+    [span(put_text('A'), col=2)],  # 'A' across 2 columns
 ])
 
 # 图像

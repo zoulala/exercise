@@ -56,3 +56,14 @@ print(data[data.省控分数线 > 500])  # 使用单个列的值来选择数据
 print(data[data['考生类别名称'].isin(['理科', '文科'])])  #使用 isin() 方法过滤
 print(data[(data.考生类别名称=='理科') & (data.录取批次名称.isin(['本科一批','本科二批','本科三批']))])  # 组合过滤
 
+'''遍历'''
+for a,b in zip(data["省控分数线"],data["考生类别名称"]):  #
+    pass
+for row in data.itertuples():  # 按照行, 通过 row[name] 对元素进行访问
+    print(getattr(row, '省控分数线'), getattr(row, '考生类别名称'))
+for index,row in data.iterrows():  # 按照行, 通过 row[name] 对元素进行访问
+    print(row['省控分数线'], row['考生类别名称'])
+for _idx,col in data.items():  # 按照列进行, 通过 row[index] 对元素进行访问
+    print(_idx,col)
+for index, row in data.iteritems():   # 按照列进行, 通过 row[index] 对元素进行访问
+    print(index,row[0],row[1],row[2],row[3]) # index为列名
