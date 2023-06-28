@@ -23,7 +23,19 @@ while True:
 
 import oracledb
 from datetime import datetime
-oracledb.init_oracle_client(lib_dir="/Users/zlw/Downloads/instantclient_19_8")
+
+oracledb.init_oracle_client(lib_dir="/Users/zlw/Downloads/instantclient_19_8")  # mac os 执行这条
+"""linux需要按照如下方法设置
+设置环境变量: 
+命令行> export LD_LIBRARY_PATH=/data/zlw/oracle/instantclient_12_2:$LD_LIBRARY_PATH
+
+或
+命令行> sh -c "echo /data/zlw/oracle/instantclient_12_2 > /etc/ld.so.conf.d/oracle-instantclient.conf"
+命令行> ldconfig
+
+oracledb.init_oracle_client()
+"""
+
 conn = oracledb.connect(user='zy_lclj',password='zy_lclj',dsn='192.168.8.212:1521/orcl')
 cursor = conn.cursor()
 sql = "select PATIENT_NAME,SEX,DIAG_TYPE,DIAG_NO,DIAG_CODE,DIAG_NAME from T_DWD_DIAG_CAT  where PATIENT_ID=:patient_id and VISIT_ID=:visit_id"

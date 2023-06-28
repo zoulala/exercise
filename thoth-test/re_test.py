@@ -86,6 +86,32 @@ ss = '共 8 页,共 9 页'
 ms = re.findall(r'共(.*?)页', ss)  # 最短匹配
 print (ms)
 
+# finditer()------------------------
+offsets = []
+results = re.finditer('共(.*?)页',ss)
+for res in results:
+    offsets.append(res.span())
+
+
+datas = re.finditer('(\d+)(\w+)','afb123ga26')
+# datas = re.finditer('(afb)','afb123ga26')
+for d in datas:
+    print(d.span())
+    print(d.start(),d.end())
+    print(d.group())
+    print(d.groups())
+    a = d.group()
+    b = d.groups()
+    bspan = d.regs[1]
+    print(b)
+    print(bspan)
+    # groups() 为元组，代表多少个括号内容
+    for i in range(len(d.groups())):
+        a_group = d.groups()[i]
+        a_span = d.regs[i+1]
+        print(a_group,a_span)
+
+
 
 
 
