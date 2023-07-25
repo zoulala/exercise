@@ -95,21 +95,23 @@ for res in results:
 
 datas = re.finditer('(\d+)(\w+)','afb123ga26')
 # datas = re.finditer('(afb)','afb123ga26')
+print('----')
 for d in datas:
-    print(d.span())
+
+    print(d.span())  # (3, 10)
     print(d.start(),d.end())
-    print(d.group())
-    print(d.groups())
+    print(d.group())  # 123ga26
+    print(d.groups())  # ('123', 'ga26')
     a = d.group()
     b = d.groups()
     bspan = d.regs[1]
     print(b)
-    print(bspan)
+    print(bspan)  # (3, 6)
     # groups() 为元组，代表多少个括号内容
     for i in range(len(d.groups())):
         a_group = d.groups()[i]
         a_span = d.regs[i+1]
-        print(a_group,a_span)
+        print(a_group,a_span)  # 123 (3, 6) / ga26 (6, 10)
 
 
 
