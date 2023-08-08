@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Web Mind Mapping</title>
+    <link rel="stylesheet" href="css/prism.css">
+    <link rel="stylesheet" href="css/common.css">
+</head>
+<body>
+<h3 class="title">
+    基于 D3.js 的 Web 思维导图，以梳理 BootStrap 知识点为例
+</h3>
+<h3 id="loading" class="title">
+  loading<span></span>
+</h3>
+<div id="drawing" class="drawing">
+
+</div>
+<div class="modal" id="modal">
+    <div class="modal-bg">
+        <div class="modal-content">
+            <div class="modal-cell">
+                <pre class="modal-code">
+                    <code class="language-html"></code>
+                </pre>
+            </div>
+        </div>
+        <div class="modal-close">
+
+        </div>
+    </div>
+    <div class="modal-mask"></div>
+</div>
+<iframe class="code_iframe" id="html_code" src="bs_introduction/code_container.html"></iframe>
+<script src="js/d3_flex_tree.js"></script>
+<script src="js/mind_mapping.js"></script>
+<script src="js/prism.js"></script>
+</body>
+</html>

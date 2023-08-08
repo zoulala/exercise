@@ -47,7 +47,7 @@ put_grid([
 ])
 
 # 图像
-put_image(open('xx.png','rb').read())
+put_image(open('xx.png', 'rb').read())
 put_image('http://example.com/some-image.png')  # internet image
 
 # markdown
@@ -82,7 +82,7 @@ put_buttons(['A','B','C'], onclick=on_click)  # onclick： Callback which will b
 put_button("Click me", onclick=lambda: toast("Clicked"))  # single button
 
 # 都可以触发:不仅是按钮，所有的输出都可以绑定点击事件。你可以在输出函数之后调用 onclick() 方法来绑定点击事件:
-put_image(open('xx.png','rb').read()).onclick(lambda: toast('You click an image'))
+put_image(open('xx.png', 'rb').read()).onclick(lambda: toast('You click an image'))
 
 # 输出内容在水平方向上排列
 put_row([put_code('A'), None, put_code('B')])
