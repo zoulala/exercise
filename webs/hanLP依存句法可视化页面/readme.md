@@ -16,6 +16,33 @@
     - styles
     ![img_1.png](img_1.png)
     - index.html
+  
+- 结构化样式选择：
+  - 参考：https://universaldependencies.org/docs/format.html
+  - 参考：http://brat.nlplab.org/examples.html
+  - 对应的变量在annodoc.js中：
+  ```
+    var parseFunctionMap = {
+        // Stanford dependencies
+        '.sdparse' : parseSd,
+        '.language-sdparse' : parseSd, 
+        '.sd-parse' : parseSd, // deprecated, avoid using
+
+        // CoNLL-X
+        '.conllx-parse' : parseConllX,
+        '.language-conllx' : parseConllX,
+
+        // CoNLL-U
+        '.conllu': parseConllU,
+        '.conllu-parse' : parseConllU,
+        '.language-conllu' : parseConllU,
+
+        // .ann standoff
+        '.ann-annotation' : parseAnn,
+        '.language-ann' : parseAnn,
+    };
+  ```
+  
       
 ### 将该页面嵌入到flask项目中
 
