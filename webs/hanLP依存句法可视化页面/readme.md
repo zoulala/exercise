@@ -20,7 +20,7 @@
 - 结构化样式选择：
   - 参考：https://universaldependencies.org/docs/format.html
   - 参考：http://brat.nlplab.org/examples.html
-  - 对应的变量在annodoc.js中：
+  - 对应的变量在annodoc.js中,进一步参考方法中对格式说明：
   ```
     var parseFunctionMap = {
         // Stanford dependencies
